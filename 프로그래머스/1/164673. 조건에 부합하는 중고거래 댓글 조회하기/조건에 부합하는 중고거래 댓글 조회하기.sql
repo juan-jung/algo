@@ -1,0 +1,4 @@
+select A.TITLE, A.BOARD_ID, B.REPLY_ID, B.WRITER_ID, B.CONTENTS, Date_format(B.CREATED_DATE,"%Y-%m-%d")
+from USED_GOODS_BOARD A, USED_GOODS_REPLY B
+where A.BOARD_ID = B.BOARD_ID AND A.CREATED_DATE BETWEEN "2022-10-1" and "2022-10-31"
+order by B.created_date asc, A.title asc;
