@@ -18,7 +18,7 @@ class Solution {
 
             if(map.size()==length) {
                 int cnt = end - start + 1;
-                // if(cnt == length) return new int[]{start+1, end+1};
+                if(cnt == length) return new int[]{start+1, end+1};
                 if(min > cnt) {
                     min = cnt;
                     minS = start;
