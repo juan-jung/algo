@@ -6,7 +6,7 @@ class Solution {
         int[] dy = {0,0,-1,1};
         boolean[][] v = new boolean[land.length][land[0].length];
         int flag = 2;
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>(); 
         for(int i=0;i<land.length;i++) {
             for(int j=0;j<land[i].length;j++) {
                 if(land[i][j] != 1) continue;
