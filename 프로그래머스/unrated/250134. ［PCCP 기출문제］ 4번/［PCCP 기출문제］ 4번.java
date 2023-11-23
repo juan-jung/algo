@@ -89,12 +89,12 @@ class Solution {
                 for(int d2=0;d2<4;d2++) {
                     int redNX = cur.redX + dx[d];
                     int redNY = cur.redY + dy[d];
-                    if(redNX<0||redNX>maze.length-1||redNY<0||redNY>maze[0].length-1||maze[redNX][redNY]==5) continue;
+                    if(redNX<0||redNX>maze.length-1||redNY<0||redNY>maze[0].length-1||maze[redNX][redNY]==5) continue end;
                     else if(cur.redX==redTargetX&&cur.redY==redTargetY) {
                         redNX = redTargetX;
                         redNY = redTargetY;
                     }
-                    else if(!(redNX==redTargetX&&redNY==redTargetY)&&cur.redV[redNX][redNY]) continue;
+                    else if(!(redNX==redTargetX&&redNY==redTargetY)&&cur.redV[redNX][redNY]) continue end;
 
                     int blueNX = cur.blueX + dx[d2];
                     int blueNY = cur.blueY + dy[d2];
