@@ -6,5 +6,3 @@ from BOOK A, AUTHOR B, (select BOOK_ID, sum(SALES) sales
 where A.book_id = C.book_id and A.author_id = B.author_id
 group by A.author_id, A.category
 order by A.author_id asc, A.category desc;
-
-
