@@ -3,7 +3,8 @@ SELECT A.PRODUCT_ID, A.PRODUCT_NAME, B.amount * A.price as TOTAL_SALES
 from food_product A, (select product_id, sum(amount) as amount 
                       from food_order 
                       where produce_date like "2022-05-%"
-                      group by product_id 
+                      group by product_id
+                      # having produce_date like "2022-05-%"
                       ) B
 where A.product_id = B.product_id
 order by TOTAL_SALES desc, product_id asc;
