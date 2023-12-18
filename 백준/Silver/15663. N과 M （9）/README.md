@@ -34,3 +34,24 @@
 
 <p>수열은 사전 순으로 증가하는 순서로 출력해야 한다.</p>
 
+
+### 새로운 풀이
+```
+static void perm(int cnt, int[] arr, boolean[] v, int[] selected, int M, int N) {
+		if(cnt == M) {
+			for(int i=0;i<M;i++) System.out.print(selected[i]+" ");
+			return;
+		}
+		
+		int prev = -1;
+		
+		for(int i=0;i<N;i++) {
+			if(v[i] || prev==arr[i]) continue;
+			v[i] = true;
+			prev = arr[i];
+			selected[cnt] = arr[i];
+			perm(cnt+1,arr,v,selected,M,N);
+			v[i] = false;
+		}
+	}
+```
