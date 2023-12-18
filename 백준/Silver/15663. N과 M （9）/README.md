@@ -36,22 +36,26 @@
 
 
 ### 새로운 풀이
+
+Map을 사용하지 않고, int형 변수에 이전 값을 저장해 같으면 continue
+-> 메모리나 시간 차이가 거의 없긴 하다...
+
 ```
 static void perm(int cnt, int[] arr, boolean[] v, int[] selected, int M, int N) {
-		if(cnt == M) {
-			for(int i=0;i<M;i++) System.out.print(selected[i]+" ");
-			return;
-		}
-		
-		int prev = -1;
-		
-		for(int i=0;i<N;i++) {
-			if(v[i] || prev==arr[i]) continue;
-			v[i] = true;
-			prev = arr[i];
-			selected[cnt] = arr[i];
-			perm(cnt+1,arr,v,selected,M,N);
-			v[i] = false;
-		}
+	if(cnt == M) {
+		for(int i=0;i<M;i++) System.out.print(selected[i]+" ");
+		return;
 	}
+	
+	int prev = -1;
+	
+	for(int i=0;i<N;i++) {
+		if(v[i] || prev==arr[i]) continue;
+		v[i] = true;
+		prev = arr[i];
+		selected[cnt] = arr[i];
+		perm(cnt+1,arr,v,selected,M,N);
+		v[i] = false;
+	}
+}
 ```
