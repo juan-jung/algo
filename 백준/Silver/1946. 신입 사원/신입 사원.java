@@ -31,21 +31,18 @@ public class Main {
         int T = Integer.parseInt(br.readLine());
         for(int tc=1;tc<=T;tc++) {
             int N = Integer.parseInt(br.readLine());
-            int[][] scores = new int[N][2];
+            int[] scores = new int[N];
             for(int i=0;i<N;i++) {
                 StringTokenizer st  = new StringTokenizer(br.readLine()," ");
-                scores[i][0] = Integer.parseInt(st.nextToken());
-                scores[i][1] = Integer.parseInt(st.nextToken());
+                scores[Integer.parseInt(st.nextToken())-1] = Integer.parseInt(st.nextToken());
             }
-
-            Arrays.sort(scores, (o1,o2) ->Integer.compare(o1[0],o2[0]));
 
             int best_score = N+1;
             int cnt = 0;
             for(int i=0;i<N;i++) {
-                if(scores[i][1] < best_score) {
+                if(scores[i] < best_score) {
                     cnt++;
-                    best_score = scores[i][1];
+                    best_score = scores[i];
                 }
             }
 
@@ -75,3 +72,11 @@ public class Main {
 //예제출력
 //4
 //3
+
+//1 4
+//2 5 x
+//3 6 x
+//4 2
+//5 7 x
+//6 1
+//7 3 x
