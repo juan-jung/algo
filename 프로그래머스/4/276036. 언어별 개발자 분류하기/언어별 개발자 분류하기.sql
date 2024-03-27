@@ -1,0 +1,23 @@
+-- 코드를 작성해주세요
+# SET @PythonCode := (SELECT CODE FROM SKILLCODES WHERE NAME = "Python" LIMIT 1);
+# SET @CSharpCode := (SELECT CODE FROM SKILLCODES WHERE NAME = "C#" LIMIT 1);
+
+SELECT
+    CASE
+        WHEN  FrontEndSKill.FrontEndSkillCnt>0 AND d.SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = "Python" LIMIT 1) THEN 'A'
+        WHEN d.SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = "C#" LIMIT 1) THEN 'B'
+        WHEN FrontEndSKill.FrontEndSkillCnt>0 THEN 'C'
+    END AS GRADE, 
+    d.ID, 
+    d.EMAIL
+FROM 
+    DEVELOPERS d  
+LEFT JOIN (
+    SELECT d.ID, COUNT(*) as FrontEndSkillCnt
+    FROM DEVELOPERS d, SKILLCODES s
+    WHERE d.SKILL_CODE & s.CODE AND s.CATEGORY = "Front End"
+    GROUP BY d.ID
+) as FrontEndSKill ON d.ID = FrontEndSkill.ID
+WHERE FrontEndSKill.FrontEndSkillCnt > 0 || d.SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = "C#" LIMIT 1)
+ORDER BY 
+    GRADE, ID;
