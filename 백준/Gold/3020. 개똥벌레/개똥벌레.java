@@ -23,13 +23,14 @@ public class Main {
             cnt[i] += cnt[i-1];
         }
 
-        Arrays.sort(cnt);
-
-        int min = cnt[1];
+        int min = Integer.MAX_VALUE;
         int min_cnt = 0;
         for(int i=1;i<=H;i++) {
-            if(cnt[i]!=min) break;
-            min_cnt++;
+            if(cnt[i]==min) min_cnt++;
+            else if(cnt[i] < min) {
+                min = cnt[i];
+                min_cnt = 1;
+            }
         }
 
         System.out.println(min + " " + min_cnt);
