@@ -1,3 +1,5 @@
+
+
 import java.io.*;
 import  java.util.*;
 
@@ -44,10 +46,11 @@ public class Main {
             }
 
             for(int d=0;d<4;d++) {
-               int[] moved = Arrays.copyOf(cur, 6);
+                if((d==0 && cur[5]==1) || (d==1&&cur[5]==0) || (d==2&&cur[5]==3) || (d==3&&cur[5]==2)) continue; 
+               int[] moved = new int[6];
                //둘다 움직이고 같은 자리면 cur위치로 판단
-                int nx = moved[0];
-                int ny = moved[1];
+                int nx = cur[0];
+                int ny = cur[1];
                 while(true) {
                     nx+=dx[d];
                     ny+=dy[d];
@@ -63,8 +66,8 @@ public class Main {
                     }
                 }
 
-                nx = moved[2];
-                ny = moved[3];
+                nx = cur[2];
+                ny = cur[3];
                 while(true) {
                     nx+=dx[d];
                     ny+=dy[d];
@@ -123,7 +126,7 @@ public class Main {
                     }
                 }
 
-                moved[4]++;
+                moved[4]=cur[4]+1;
                 moved[5] = d;
                 pq.offer(moved);
             }
