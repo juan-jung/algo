@@ -1,34 +1,16 @@
-
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-  
-  // public interface HouseComplexMap {  
-  //   int line(int i);
-  //   // BufferedReader map()
-  // }
-
   static int[] dx = {-1,1,0,0}, dy = {0,0,-1,1};
-  
-
-
-  static int dfs(int x, int y, String[] lines, boolean[][] v, int N, int cnt) {
-    if(x<0 || x>N-1 || y<0 || y>N-1  || v[x][y] || lines[x].charAt(y) == '0') return 1;
+  static int dfs(int x, int y, String[] lines, boolean[][] v, int N) {
+    if(x<0 || x>N-1 || y<0 || y>N-1  || v[x][y] || lines[x].charAt(y) == '0') return 0;
     v[x][y] = true;
     int ans = 0;
     for(int d=0; d<4; d++) {
       int nx = x+dx[d];
       int ny = y+dy[d];
-      ans += dfs(nx, ny, lines, v, N, cnt+1);
+      ans += dfs(nx, ny, lines, v, N)+1;
     }
     return ans;
   }
@@ -103,7 +85,7 @@ public class Main {
 
           // dfs 
           groups++;
-          int cnt = dfs(x, y, lines, v, n, 0);
+          int cnt = dfs(x, y, lines, v, n)/4;
           houstCount.add(cnt);
         }
       }
@@ -114,11 +96,12 @@ public class Main {
     sb.append("\n");
     Collections.sort(houstCount);
     for(int a : houstCount) {
-      sb.append((a-1)/3);
+      sb.append(a);
       sb.append("\n");
     }
     
     System.out.println(sb);
+      br.close();
     // StringTokenizer st = new StringTokenizer(br.readLine());
     // while(st.hasMoreTokens()) {
     //   bw.write(st.nextToken());
