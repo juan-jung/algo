@@ -27,6 +27,7 @@ public class Main {
     n : 1-500
     대나무양 : 백만이하 정수
      */
+    static int ans;
     static int[] dx = {-1,1,0,0}, dy = {0,0,-1,1};
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -37,9 +38,10 @@ public class Main {
             for(int j=0;j<n;j++) map[i][j]=Integer.parseInt(st.nextToken());
         }
 
-        int ans = getMaxPath(n,map);
+        ans = 0;
+        getMaxPath(n,map);
 
-        System.out.println(ans);
+        System.out.println(ans+1);
         br.close();
     }
 
@@ -53,10 +55,11 @@ public class Main {
             if(!v[nx][ny]) dfs(nx,ny,n,map,count,v);
             count[x][y] = Math.max(count[x][y], count[nx][ny]+1);
         }
+
+        ans = Math.max(ans, count[x][y]);
     }
 
-    static int getMaxPath(int n, int[][] map) {
-        int max = 0;
+    static void getMaxPath(int n, int[][] map) {
         boolean[][] v = new boolean[n][n];
         int[][] count = new int[n][n];
         for(int i=0;i<n;i++) {
@@ -65,12 +68,5 @@ public class Main {
                 dfs(i,j,n,map,count,v);
             }
         }
-
-
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<n;j++) max = Math.max(max, count[i][j]);
-        }
-
-        return max+1;
     }
 }
