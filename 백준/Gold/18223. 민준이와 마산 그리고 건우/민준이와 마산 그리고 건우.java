@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.*;
 
@@ -26,11 +27,18 @@ public class Main {
             g[b].add(new int[]{a,c});
         }
 
-        //0->V-1
+        dist = dik(V,0,g,dist);
+        dist2 = dik(V,P,g,dist2);
+
+        System.out.println(dist[V-1]>=dist[P]+dist2[V-1] && dist2[V-1]!=INF && dist[P]!=INF?"SAVE HIM" : "GOOD BYE");
+        br.close();
+    }
+
+    static int[] dik (int V, int start, ArrayList<int[]>[] g, int[] dist) {
         PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->Integer.compare(o1[1],o2[1]));
         boolean[] v = new boolean[V];
-        pq.offer(new int[]{0,0});
-        dist[0] = 0;
+        pq.offer(new int[]{start,0});
+        dist[start] = 0;
         while(!pq.isEmpty()) {
             int[] cur = pq.poll();
 
@@ -46,29 +54,6 @@ public class Main {
                 }
             }
         }
-
-        //P -> V-1
-        pq = new PriorityQueue<>((o1,o2)->Integer.compare(o1[1],o2[1]));
-        v = new boolean[V];
-        pq.offer(new int[]{P,0});
-        dist2[P] = 0;
-        while(!pq.isEmpty()) {
-            int[] cur = pq.poll();
-
-            if(cur[0]==V-1) break;
-
-            if(v[cur[0]]) continue;
-            v[cur[0]] = true;
-
-            for(int[] target : g[cur[0]]) {
-                if(dist2[target[0]] > cur[1]+target[1] && !v[target[0]]) {
-                    dist2[target[0]] = cur[1] + target[1];
-                    pq.offer(new int[]{target[0], dist2[target[0]]});
-                }
-            }
-        }
-        
-       System.out.println(dist[V-1]==dist[P]+dist2[V-1] && dist2[V-1]!=INF?"SAVE HIM" : "GOOD BYE");
-        br.close();
+        return dist;
     }
 }
