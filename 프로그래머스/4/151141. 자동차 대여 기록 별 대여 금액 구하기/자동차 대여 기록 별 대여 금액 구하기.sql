@@ -1,0 +1,38 @@
+-- 코드를 입력하세요
+WITH TRUCK_RENT_INFO AS  (
+    SELECT
+        h.HISTORY_ID,
+        c.DAILY_FEE,
+        c.CAR_TYPE,
+        DATEDIFF(h.END_DATE, h.START_DATE)+1 AS DURATION,
+        CASE
+            WHEN DATEDIFF(h.END_DATE, h.START_DATE)+1 >= 90 THEN "90일 이상"
+            WHEN DATEDIFF(h.END_DATE, h.START_DATE)+1 >= 30 THEN "30일 이상"
+            WHEN DATEDIFF(h.END_DATE, h.START_DATE)+1 >= 7 THEN "7일 이상"
+            ELSE null
+        END AS DURATION_TYPE
+    FROM  
+        CAR_RENTAL_COMPANY_CAR c,
+        CAR_RENTAL_COMPANY_RENTAL_HISTORY h
+    WHERE
+        c.CAR_TYPE  =  "트럭" AND
+        c.CAR_ID = h.CAR_ID 
+)
+
+SELECT 
+    i.HISTORY_ID,
+    ROUND((i.DURATION * i.DAILY_FEE) * (1-IFNULL(d.DISCOUNT_RATE/100,0)),0) AS FEE
+FROM 
+    TRUCK_RENT_INFO i
+LEFT JOIN
+    CAR_RENTAL_COMPANY_DISCOUNT_PLAN d
+ON 
+    d.CAR_TYPE = i.CAR_TYPE AND 
+    d.DURATION_TYPE = i.DURATION_TYPE
+ORDER BY
+    FEE desc,
+    HISTORY_ID desc;
+
+
+
+    
